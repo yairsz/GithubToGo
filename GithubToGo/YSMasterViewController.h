@@ -10,8 +10,10 @@
 
 @class YSDetailViewController;
 
-@interface YSMasterViewController : UITableViewController <UIGestureRecognizerDelegate>
+@interface YSMasterViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) YSDetailViewController *detailViewController;
+
+
 
 @end

@@ -16,48 +16,49 @@
 
 @property (strong, nonatomic) NSArray * searchResultsArray;
 @property (strong, nonatomic) YSGithubNetworkController * sharedNetworkController;
-@property (strong,nonatomic) UIViewController * backgroundVC;
 @property BOOL menuIsOut;
+@property (strong, nonatomic) UIViewController * topVC;
+@property (strong, nonatomic) NSArray * VCs;
+@property (nonatomic) CGRect closedMenuCGRect;
+@property (nonatomic) CGRect openMenuCGRect;
 
 @end
 
 @implementation YSMasterViewController
-
-- (void)awakeFromNib
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.clearsSelectionOnViewWillAppear = NO;
-        self.preferredContentSize = CGSizeMake(320.0, 600.0);
-    }
-    [super awakeFromNib];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (YSDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    self.closedMenuCGRect = self.view.frame;
+    self.openMenuCGRect = CGRectMake(150, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
     
-    self.sharedNetworkController = [YSGithubNetworkController sharedNetworkController];
-    self.searchResultsArray = [self.sharedNetworkController reposForSearchingString:@"SoundCloud"];
-//    NSLog(@"%@",self.searchResultsArray);
-    self.backgroundVC = [self.storyboard instantiateViewControllerWithIdentifier:@"backgroundVC"];
-    
+    self.menuIsOut = NO;
+
     UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(slideView)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    [self addChildViewController:self.backgroundVC];
-    self.backgroundVC.view.frame = self.view.frame;
-    self.tableView.backgroundView = self.backgroundVC.view;
-//    [self.view insertSubview:self.backgroundVC.view aboveSubview:self.tableView];
+    UIViewController * repoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"repoSearchVC"];
+    UIViewController * usersVC =[self.storyboard instantiateViewControllerWithIdentifier:@"userSearchVC"];
     
-    [self.backgroundVC didMoveToParentViewController:self];
+    self.VCs = [NSArray arrayWithObjects:repoVC,usersVC, nil];
+
+    [self setTopVC:self.VCs[0]];
+}
+
+- (void)setTopVC:(UIViewController *) topVC
+{
+    _topVC = topVC;
+    [self addChildViewController:_topVC];
+    _topVC.view.frame = self.closedMenuCGRect;
+    [self.view addSubview:_topVC.view];
+    
+    [_topVC didMoveToParentViewController:self];
     [self setupPanGesture];
+    self.menuIsOut = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,20 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
 
 - (void) slideView {
-    float slideNumber = self.menuIsOut ? 0 : -200;
+    CGRect slideToRect = self.menuIsOut ? self.closedMenuCGRect : self.openMenuCGRect;
     [UIView animateWithDuration:0.4 animations:^{
-        self.tableView.bounds = CGRectMake(slideNumber, self.tableView.bounds.origin.y, self.tableView.bounds.size.width, self.tableView.bounds.size.height);
+        self.topVC.view.frame = slideToRect;
     }];
     self.menuIsOut = !self.menuIsOut;
 }
@@ -93,7 +85,7 @@
     
     pan.delegate = self;
     
-    [self.tableView addGestureRecognizer:pan];
+    [self.topVC.view addGestureRecognizer:pan];
     
 }
 
@@ -106,9 +98,9 @@
     
     if (pan.state == UIGestureRecognizerStateChanged)
     {
-        if (self.tableView.frame.origin.x+ translation.x > 0) {
+        if (self.topVC.view.frame.origin.x+ translation.x > 0) {
             
-            self.tableView.center = CGPointMake(self.tableView.center.x +translation.x, self.tableView.center.y);
+            self.topVC.view.center = CGPointMake(self.topVC.view.center.x +translation.x, self.topVC.view.center.y);
 
             [(UIPanGestureRecognizer *)sender setTranslation:CGPointMake(0,0) inView:self.view];
         }
@@ -117,91 +109,46 @@
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-        if (self.tableView.frame.origin.x > self.view.frame.size.width / 2)
+        if (self.topVC.view.frame.origin.x > self.view.frame.size.width / 3)
         {
-//            [self openMenu];  
+            [self openMenu];  
         }
-        if (self.tableView.frame.origin.x < self.view.frame.size.width / 2 )
+        if (self.topVC.view.frame.origin.x < self.view.frame.size.width / 3)
         {
-            [UIView animateWithDuration:.4 animations:^{
-                self.tableView.frame = self.view.frame;
-            } completion:^(BOOL finished) {
-//                [self closeMenu];
-            }];
+            [self closeMenu];
         }
     }
     
 }
 
-#pragma mark - Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void) openMenu
 {
-    return 1;
+    [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:2.0 initialSpringVelocity:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.topVC.view.frame = self.openMenuCGRect;
+    } completion:nil];
+    
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(void) closeMenu
 {
-    return self.searchResultsArray.count;
+    [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:2.0 initialSpringVelocity:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.topVC.view.frame = self.closedMenuCGRect;
+    } completion:nil];
+    
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDictionary * repo = self.searchResultsArray[indexPath.row];
-    cell.textLabel.text = repo[@"name"];
-    return cell;
-}
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return NO;
-}
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDictionary * repo = self.searchResultsArray[indexPath.row];
-        self.detailViewController.detailItem = repo;
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+//        NSIndexPath *indexPath = [self.topVC.view indexPathForSelectedRow];
+//        NSDictionary * repo = self.searchResultsArray[indexPath.row];
+//        [[segue destinationViewController] setDetailItem:repo];
 //    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDictionary * repo = self.searchResultsArray[indexPath.row];
-        [[segue destinationViewController] setDetailItem:repo];
-    }
-}
+//}
 
 
 @end
