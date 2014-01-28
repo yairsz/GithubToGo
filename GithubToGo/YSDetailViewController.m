@@ -10,7 +10,13 @@
 
 @interface YSDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+
+
 - (void)configureView;
+
+
 @end
 
 @implementation YSDetailViewController
@@ -35,8 +41,14 @@
 {
     // Update the user interface for the detail item.
 
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+    if ([self.detailItem isKindOfClass:[NSDictionary class]]) {
+        
+        NSString * githubString = [self.detailItem objectForKey:@"html_url"];
+        NSURL * githubURL = [NSURL URLWithString:githubString];
+        NSURLRequest *gitURLRequest = [NSURLRequest requestWithURL:githubURL];
+        NSLog(@"%@",githubURL);
+        [self.webView loadRequest:gitURLRequest];
+        
     }
 }
 

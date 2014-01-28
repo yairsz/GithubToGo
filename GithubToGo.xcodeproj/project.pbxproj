@@ -23,6 +23,12 @@
 		B009E01E1896CFE0006E20D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B009DFFA1896CFE0006E20D7 /* UIKit.framework */; };
 		B009E0261896CFE0006E20D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B009E0241896CFE0006E20D7 /* InfoPlist.strings */; };
 		B009E0281896CFE0006E20D7 /* GithubToGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B009E0271896CFE0006E20D7 /* GithubToGoTests.m */; };
+		B009E0361896D341006E20D7 /* YSGithubNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = B009E0351896D341006E20D7 /* YSGithubNetworkController.m */; };
+		B0235EEC1897594A00769FBA /* anchorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EE71897594A00769FBA /* anchorIcon.png */; };
+		B0235EED1897594A00769FBA /* atomicIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EE81897594A00769FBA /* atomicIcon.png */; };
+		B0235EEE1897594A00769FBA /* beerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EE91897594A00769FBA /* beerIcon.png */; };
+		B0235EEF1897594A00769FBA /* molarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EEA1897594A00769FBA /* molarIcon.png */; };
+		B0235EF01897594A00769FBA /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EEB1897594A00769FBA /* searchIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +64,13 @@
 		B009E0231896CFE0006E20D7 /* GithubToGoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GithubToGoTests-Info.plist"; sourceTree = "<group>"; };
 		B009E0251896CFE0006E20D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B009E0271896CFE0006E20D7 /* GithubToGoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GithubToGoTests.m; sourceTree = "<group>"; };
+		B009E0341896D341006E20D7 /* YSGithubNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSGithubNetworkController.h; sourceTree = "<group>"; };
+		B009E0351896D341006E20D7 /* YSGithubNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSGithubNetworkController.m; sourceTree = "<group>"; };
+		B0235EE71897594A00769FBA /* anchorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anchorIcon.png; sourceTree = "<group>"; };
+		B0235EE81897594A00769FBA /* atomicIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atomicIcon.png; sourceTree = "<group>"; };
+		B0235EE91897594A00769FBA /* beerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beerIcon.png; sourceTree = "<group>"; };
+		B0235EEA1897594A00769FBA /* molarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = molarIcon.png; sourceTree = "<group>"; };
+		B0235EEB1897594A00769FBA /* searchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchIcon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +130,8 @@
 		B009DFFC1896CFE0006E20D7 /* GithubToGo */ = {
 			isa = PBXGroup;
 			children = (
+				B009E0341896D341006E20D7 /* YSGithubNetworkController.h */,
+				B009E0351896D341006E20D7 /* YSGithubNetworkController.m */,
 				B009E0051896CFE0006E20D7 /* YSAppDelegate.h */,
 				B009E0061896CFE0006E20D7 /* YSAppDelegate.m */,
 				B009E0081896CFE0006E20D7 /* Main_iPhone.storyboard */,
@@ -134,6 +149,11 @@
 		B009DFFD1896CFE0006E20D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0235EE71897594A00769FBA /* anchorIcon.png */,
+				B0235EE81897594A00769FBA /* atomicIcon.png */,
+				B0235EE91897594A00769FBA /* beerIcon.png */,
+				B0235EEA1897594A00769FBA /* molarIcon.png */,
+				B0235EEB1897594A00769FBA /* searchIcon.png */,
 				B009DFFE1896CFE0006E20D7 /* GithubToGo-Info.plist */,
 				B009DFFF1896CFE0006E20D7 /* InfoPlist.strings */,
 				B009E0021896CFE0006E20D7 /* main.m */,
@@ -237,8 +257,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0235EEE1897594A00769FBA /* beerIcon.png in Resources */,
+				B0235EEC1897594A00769FBA /* anchorIcon.png in Resources */,
+				B0235EF01897594A00769FBA /* searchIcon.png in Resources */,
 				B009E00D1896CFE0006E20D7 /* Main_iPad.storyboard in Resources */,
 				B009E0151896CFE0006E20D7 /* Images.xcassets in Resources */,
+				B0235EEF1897594A00769FBA /* molarIcon.png in Resources */,
+				B0235EED1897594A00769FBA /* atomicIcon.png in Resources */,
 				B009E00A1896CFE0006E20D7 /* Main_iPhone.storyboard in Resources */,
 				B009E0011896CFE0006E20D7 /* InfoPlist.strings in Resources */,
 			);
@@ -260,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B009E0101896CFE0006E20D7 /* YSMasterViewController.m in Sources */,
+				B009E0361896D341006E20D7 /* YSGithubNetworkController.m in Sources */,
 				B009E0131896CFE0006E20D7 /* YSDetailViewController.m in Sources */,
 				B009E0071896CFE0006E20D7 /* YSAppDelegate.m in Sources */,
 				B009E0031896CFE0006E20D7 /* main.m in Sources */,
@@ -481,6 +507,7 @@
 				B009E02D1896CFE0006E20D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B009E02E1896CFE0006E20D7 /* Build configuration list for PBXNativeTarget "GithubToGoTests" */ = {
 			isa = XCConfigurationList;
@@ -489,6 +516,7 @@
 				B009E0301896CFE0006E20D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
