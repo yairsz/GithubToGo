@@ -12,5 +12,6 @@
 
 +(YSGithubNetworkController *) sharedNetworkController;
 
-- (NSArray *) reposForSearchingString: (NSString *) searchString;
+- (NSArray *) searchReposForString: (NSString *) searchString;
+- (NSArray *) searchUsersForString: (NSString *) searchString;
 @end

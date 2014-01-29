@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YSDetailViewController.h"
 
-@interface YSRepoSearchResultVCViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface YSRepoSearchResultVCViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) YSDetailViewController *detailViewController;
 @property (strong, nonatomic) IBOutlet UITableView * tableView;

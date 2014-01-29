@@ -19,8 +19,8 @@
 @property BOOL menuIsOut;
 @property (strong, nonatomic) UIViewController * topVC;
 @property (strong, nonatomic) NSArray * VCs;
-@property (nonatomic) CGRect closedMenuCGRect;
-@property (nonatomic) CGRect openMenuCGRect;
+@property (nonatomic) CGRect closedMenuCGRect, offScreenCGRect, openMenuCGRect;
+
 
 @end
 
@@ -35,6 +35,7 @@
     
     self.closedMenuCGRect = self.view.frame;
     self.openMenuCGRect = CGRectMake(150, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+    self.offScreenCGRect = CGRectMake(self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
     
     self.menuIsOut = NO;
 
@@ -49,13 +50,26 @@
     [self setTopVC:self.VCs[0]];
 }
 
+
+- (IBAction)menuButtonPressed:(UIButton *)sender {
+    self.menuIsOut = YES;
+    [UIView animateWithDuration:0.4 animations:^{
+        self.topVC.view.frame = self.offScreenCGRect;
+    } completion:^(BOOL finished) {
+        [self setTopVC:self.VCs[sender.tag]];
+        [self closeMenu];
+    }];
+    
+}
+
 - (void)setTopVC:(UIViewController *) topVC
 {
     _topVC = topVC;
     [self addChildViewController:_topVC];
-    _topVC.view.frame = self.closedMenuCGRect;
-    [self.view addSubview:_topVC.view];
     
+    self.topVC.view.frame = self.menuIsOut ? self.offScreenCGRect : self.closedMenuCGRect;
+    
+    [self.view addSubview:_topVC.view];
     [_topVC didMoveToParentViewController:self];
     [self setupPanGesture];
     self.menuIsOut = NO;
@@ -68,13 +82,6 @@
 }
 
 
-- (void) slideView {
-    CGRect slideToRect = self.menuIsOut ? self.closedMenuCGRect : self.openMenuCGRect;
-    [UIView animateWithDuration:0.4 animations:^{
-        self.topVC.view.frame = slideToRect;
-    }];
-    self.menuIsOut = !self.menuIsOut;
-}
 
 -(void)setupPanGesture
 {
@@ -87,6 +94,15 @@
     
     [self.topVC.view addGestureRecognizer:pan];
     
+}
+
+
+- (void) slideView {
+    CGRect slideToRect = self.menuIsOut ? self.closedMenuCGRect : self.openMenuCGRect;
+    [UIView animateWithDuration:0.4 animations:^{
+        self.topVC.view.frame = slideToRect;
+    }];
+    self.menuIsOut = !self.menuIsOut;
 }
 
 -(void)slidePanel:(id)sender
@@ -137,18 +153,6 @@
     
 }
 
-
-
-
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-//        NSIndexPath *indexPath = [self.topVC.view indexPathForSelectedRow];
-//        NSDictionary * repo = self.searchResultsArray[indexPath.row];
-//        [[segue destinationViewController] setDetailItem:repo];
-//    }
-//}
 
 
 @end

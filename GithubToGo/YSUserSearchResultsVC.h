@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YSDetailViewController.h"
 
-@interface YSUserSearchResultsVC : UIViewController
+@interface YSUserSearchResultsVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (strong, nonatomic) YSDetailViewController *detailViewController;
+@property (strong, nonatomic) IBOutlet UICollectionView * collectionView;
 
 @end
