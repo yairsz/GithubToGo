@@ -26,6 +26,8 @@
 
 @implementation YSMasterViewController
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,7 +41,7 @@
     
     self.menuIsOut = NO;
 
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(slideView)];
+    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(slideView)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     UIViewController * repoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"repoSearchVC"];
@@ -50,6 +52,22 @@
     [self setTopVC:self.VCs[0]];
 }
 
+//- (void) viewWillLayoutSubviews
+//{
+//    self.topVC.view.frame = self.view.frame;
+//}
+
+- (CGRect) closedMenuCGRect {
+    return self.view.frame;
+}
+- (CGRect) openMenuCGRect {
+    return CGRectMake(150, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+}
+
+- (CGRect) offScreenCGRect {
+    return CGRectMake(self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+}
+
 
 - (IBAction)menuButtonPressed:(UIButton *)sender {
     self.menuIsOut = YES;
@@ -57,23 +75,31 @@
         self.topVC.view.frame = self.offScreenCGRect;
     } completion:^(BOOL finished) {
         [self setTopVC:self.VCs[sender.tag]];
-        [self closeMenu];
+            [self closeMenu];
     }];
     
 }
 
 - (void)setTopVC:(UIViewController *) topVC
 {
+    if (_topVC) {
+        [_topVC.view removeFromSuperview];
+        [_topVC removeFromParentViewController];
+    }
     _topVC = topVC;
+
     [self addChildViewController:_topVC];
-    
-    self.topVC.view.frame = self.menuIsOut ? self.offScreenCGRect : self.closedMenuCGRect;
+//    
+    _topVC.view.frame = self.menuIsOut ? self.offScreenCGRect : self.closedMenuCGRect;
     
     [self.view addSubview:_topVC.view];
+    
     [_topVC didMoveToParentViewController:self];
+    
     [self setupPanGesture];
     self.menuIsOut = NO;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -81,7 +107,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+//- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//        [super ]
+//    
+//}
 
 -(void)setupPanGesture
 {
@@ -150,9 +179,6 @@
     [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:2.0 initialSpringVelocity:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.topVC.view.frame = self.closedMenuCGRect;
     } completion:nil];
-    
 }
-
-
 
 @end

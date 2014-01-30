@@ -24,14 +24,18 @@
 {
     
 //    @try {
-        searchString = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@&sort=start&order=desc",searchString];
-        
-        NSURL * searchURL = [NSURL URLWithString:searchString];
-        NSData * URLData = [NSData dataWithContentsOfURL:searchURL];
-        NSError * error;
-        NSDictionary * searchDictionary = [NSJSONSerialization JSONObjectWithData:URLData options:NSJSONReadingMutableContainers error:&error];
-        
-        return [searchDictionary objectForKey:@"items"];
+    searchString = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@&sort=start&order=desc",searchString];
+    
+    NSURL * searchURL = [NSURL URLWithString:searchString];
+    NSData * URLData = [NSData dataWithContentsOfURL:searchURL];
+    NSError * error;
+    NSDictionary * searchDictionary;
+    if (URLData) {
+         searchDictionary = [NSJSONSerialization JSONObjectWithData:URLData options:NSJSONReadingMutableContainers error:&error];
+    }
+    if (searchDictionary) NSLog(@"got repos dictionary");
+    
+    return [searchDictionary objectForKey:@"items"];
 //    }
 //    @catch (NSException *exception) {
 //        NSString * message = @"Github data could not be loaded";
@@ -55,7 +59,7 @@
          searchDictionary = [NSJSONSerialization JSONObjectWithData:URLData options:NSJSONReadingMutableContainers error:&error];
         
     }
-    NSLog(@"%@",searchDictionary);
+    if (searchDictionary) NSLog(@"got user dictionary");
     
     return [searchDictionary objectForKey:@"items"];
     //    }

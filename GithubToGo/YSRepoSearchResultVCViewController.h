@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "YSDetailViewController.h"
+#import "YSGithubUser.h"
 
-@interface YSRepoSearchResultVCViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, UISearchBarDelegate>
+@interface YSRepoSearchResultVCViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
 @property (strong, nonatomic) YSDetailViewController *detailViewController;
 @property (strong, nonatomic) IBOutlet UITableView * tableView;

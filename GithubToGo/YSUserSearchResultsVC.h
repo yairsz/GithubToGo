@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "YSDetailViewController.h"
+#import "YSGithubUser.h"
 
-@interface YSUserSearchResultsVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface YSUserSearchResultsVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,YSGitUserDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) YSDetailViewController *detailViewController;
 @property (strong, nonatomic) IBOutlet UICollectionView * collectionView;

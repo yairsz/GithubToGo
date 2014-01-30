@@ -10,6 +10,7 @@
 #import "YSDetailViewController.h"
 #import "YSGithubNetworkController.h"
 
+
 @interface YSRepoSearchResultVCViewController ()
 
 @property (strong, nonatomic) NSArray * searchResultsArray;
@@ -43,6 +44,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (self.clearsSelectionOnViewWillAppear) {
         [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     }
@@ -53,6 +55,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    self.view.frame = self.parentViewController.view.frame;
+}
+
+
 
 - (void) searchReposForString:(NSString *) string {
     self.searchResultsArray = [self.sharedNetworkController searchReposForString:string];
@@ -106,11 +114,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
     NSDictionary * repo = self.searchResultsArray[indexPath.row];
     self.detailViewController.detailItem = repo;
-    [self performSegueWithIdentifier:@"showDetail" sender:self];
-    //    }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [self performSegueWithIdentifier:@"showDetail" sender:self];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -150,5 +158,6 @@
         }
     }
 }
+
 
 @end

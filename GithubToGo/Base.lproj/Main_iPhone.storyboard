@@ -101,7 +101,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cKx-Cr-4SB">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cKx-Cr-4SB">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -109,7 +109,7 @@
                                     <outlet property="delegate" destination="WO3-r1-O6m" id="QTI-Un-pxR"/>
                                 </connections>
                             </searchBar>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aWg-ZF-Xr7">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aWg-ZF-Xr7">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,6 +157,15 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="aWg-ZF-Xr7" secondAttribute="bottom" id="Jnj-qF-CPQ"/>
+                            <constraint firstItem="aWg-ZF-Xr7" firstAttribute="leading" secondItem="JWF-31-Yhn" secondAttribute="leading" id="Mwb-bl-h3h"/>
+                            <constraint firstItem="aWg-ZF-Xr7" firstAttribute="leading" secondItem="cKx-Cr-4SB" secondAttribute="leading" id="S0n-Co-1Sh"/>
+                            <constraint firstItem="cKx-Cr-4SB" firstAttribute="trailing" secondItem="aWg-ZF-Xr7" secondAttribute="trailing" id="UT4-gD-Ca7"/>
+                            <constraint firstItem="aWg-ZF-Xr7" firstAttribute="top" secondItem="cKx-Cr-4SB" secondAttribute="bottom" id="b3h-xB-GNF"/>
+                            <constraint firstAttribute="trailing" secondItem="cKx-Cr-4SB" secondAttribute="trailing" id="kiA-ZM-oev"/>
+                            <constraint firstItem="cKx-Cr-4SB" firstAttribute="top" secondItem="h0O-kF-AbQ" secondAttribute="bottom" constant="44" id="sQX-c9-3i4"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="aWg-ZF-Xr7" id="q6F-yM-ILA"/>
@@ -185,7 +194,7 @@
                                 <rect key="frame" x="20" y="87" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" image="beerIcon.png">
+                                <state key="normal" image="searchIcon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -196,7 +205,7 @@
                                 <rect key="frame" x="20" y="125" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" image="atomicIcon.png">
+                                <state key="normal" image="searchIcon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -236,14 +245,14 @@
                                     <action selector="menuButtonPressed:" destination="xmI-A4-LcF" eventType="touchUpInside" id="5PA-ku-cDV"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Beer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEI-9I-U0p">
-                                <rect key="frame" x="58" y="91" width="59" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEI-9I-U0p">
+                                <rect key="frame" x="58" y="91" width="96" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Atoms" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j60-2E-QnY">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j60-2E-QnY">
                                 <rect key="frame" x="58" y="129" width="59" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
@@ -318,8 +327,6 @@
     </scenes>
     <resources>
         <image name="anchorIcon.png" width="290" height="290"/>
-        <image name="atomicIcon.png" width="290" height="290"/>
-        <image name="beerIcon.png" width="290" height="290"/>
         <image name="molarIcon.png" width="290" height="290"/>
         <image name="searchIcon.png" width="290" height="290"/>
     </resources>

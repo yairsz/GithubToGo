@@ -30,6 +30,7 @@
 		B0235EEF1897594A00769FBA /* molarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EEA1897594A00769FBA /* molarIcon.png */; };
 		B0235EF01897594A00769FBA /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EEB1897594A00769FBA /* searchIcon.png */; };
 		B055F17118989C77008007A6 /* YSCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B055F17018989C77008007A6 /* YSCustomCell.m */; };
+		B055F1741899A603008007A6 /* YSGithubUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B055F1731899A603008007A6 /* YSGithubUser.m */; };
 		B0FE71071898626800BAF7B3 /* YSRepoSearchResultVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE71061898626800BAF7B3 /* YSRepoSearchResultVCViewController.m */; };
 		B0FE710A1898628A00BAF7B3 /* YSUserSearchResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE71091898628A00BAF7B3 /* YSUserSearchResultsVC.m */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,8 @@
 		B0235EEB1897594A00769FBA /* searchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchIcon.png; sourceTree = "<group>"; };
 		B055F16F18989C77008007A6 /* YSCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCustomCell.h; sourceTree = "<group>"; };
 		B055F17018989C77008007A6 /* YSCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCustomCell.m; sourceTree = "<group>"; };
+		B055F1721899A603008007A6 /* YSGithubUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSGithubUser.h; sourceTree = "<group>"; };
+		B055F1731899A603008007A6 /* YSGithubUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSGithubUser.m; sourceTree = "<group>"; };
 		B0FE71051898626700BAF7B3 /* YSRepoSearchResultVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSRepoSearchResultVCViewController.h; sourceTree = "<group>"; };
 		B0FE71061898626800BAF7B3 /* YSRepoSearchResultVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSRepoSearchResultVCViewController.m; sourceTree = "<group>"; };
 		B0FE71081898628A00BAF7B3 /* YSUserSearchResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUserSearchResultsVC.h; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 			children = (
 				B009E0341896D341006E20D7 /* YSGithubNetworkController.h */,
 				B009E0351896D341006E20D7 /* YSGithubNetworkController.m */,
+				B055F1721899A603008007A6 /* YSGithubUser.h */,
+				B055F1731899A603008007A6 /* YSGithubUser.m */,
 				B009E0051896CFE0006E20D7 /* YSAppDelegate.h */,
 				B009E0061896CFE0006E20D7 /* YSAppDelegate.m */,
 				B009E0081896CFE0006E20D7 /* Main_iPhone.storyboard */,
@@ -306,6 +311,7 @@
 				B0FE71071898626800BAF7B3 /* YSRepoSearchResultVCViewController.m in Sources */,
 				B009E0131896CFE0006E20D7 /* YSDetailViewController.m in Sources */,
 				B009E0071896CFE0006E20D7 /* YSAppDelegate.m in Sources */,
+				B055F1741899A603008007A6 /* YSGithubUser.m in Sources */,
 				B009E0031896CFE0006E20D7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

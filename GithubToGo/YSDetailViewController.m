@@ -46,7 +46,6 @@
         NSString * githubString = [self.detailItem objectForKey:@"html_url"];
         NSURL * githubURL = [NSURL URLWithString:githubString];
         NSURLRequest *gitURLRequest = [NSURLRequest requestWithURL:githubURL];
-        NSLog(@"%@",githubURL);
         [self.webView loadRequest:gitURLRequest];
         
     }
