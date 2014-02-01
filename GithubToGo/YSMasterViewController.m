@@ -52,11 +52,6 @@
     [self setTopVC:self.VCs[0]];
 }
 
-//- (void) viewWillLayoutSubviews
-//{
-//    self.topVC.view.frame = self.view.frame;
-//}
-
 - (CGRect) closedMenuCGRect {
     return self.view.frame;
 }
@@ -79,6 +74,8 @@
     }];
     
 }
+
+-(BOOL) shouldAutomaticallyForwardRotationMethods {return  NO;};
 
 - (void)setTopVC:(UIViewController *) topVC
 {

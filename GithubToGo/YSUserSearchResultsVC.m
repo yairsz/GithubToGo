@@ -56,7 +56,8 @@
 }
 
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    
+//        self.view.frame = self.parentViewController.view.frame;
+
 }
 
 
