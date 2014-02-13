@@ -7,6 +7,7 @@
 //
 
 #import "YSDetailViewController.h"
+#import "Repo.h"
 
 @interface YSDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -21,8 +22,7 @@
 
 @implementation YSDetailViewController
 
-#pragma mark - Managing the detail item
-
+#pragma mark - Managing the detail ite
 - (void)setDetailItem:(id)newDetailItem
 {
     if (_detailItem != newDetailItem) {
@@ -41,9 +41,9 @@
 {
     // Update the user interface for the detail item.
 
-    if ([self.detailItem isKindOfClass:[NSDictionary class]]) {
+    if ([self.detailItem isKindOfClass:[Repo class]]) {
         
-        NSString * githubString = [self.detailItem objectForKey:@"html_url"];
+        NSString * githubString = self.detailItem.html_url;
         NSURL * githubURL = [NSURL URLWithString:githubString];
         NSURLRequest *gitURLRequest = [NSURLRequest requestWithURL:githubURL];
         [self.webView loadRequest:gitURLRequest];

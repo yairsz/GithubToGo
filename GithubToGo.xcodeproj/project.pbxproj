@@ -24,6 +24,8 @@
 		B009E0261896CFE0006E20D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B009E0241896CFE0006E20D7 /* InfoPlist.strings */; };
 		B009E0281896CFE0006E20D7 /* GithubToGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B009E0271896CFE0006E20D7 /* GithubToGoTests.m */; };
 		B009E0361896D341006E20D7 /* YSGithubNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = B009E0351896D341006E20D7 /* YSGithubNetworkController.m */; };
+		B00F571818AC1E6C00876050 /* YSHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B00F571718AC1E6C00876050 /* YSHomeVC.m */; };
+		B00F571A18AC225300876050 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00F571918AC225300876050 /* AVFoundation.framework */; };
 		B0235EEC1897594A00769FBA /* anchorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EE71897594A00769FBA /* anchorIcon.png */; };
 		B0235EED1897594A00769FBA /* atomicIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EE81897594A00769FBA /* atomicIcon.png */; };
 		B0235EEE1897594A00769FBA /* beerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EE91897594A00769FBA /* beerIcon.png */; };
@@ -31,6 +33,9 @@
 		B0235EF01897594A00769FBA /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B0235EEB1897594A00769FBA /* searchIcon.png */; };
 		B055F17118989C77008007A6 /* YSCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B055F17018989C77008007A6 /* YSCustomCell.m */; };
 		B055F1741899A603008007A6 /* YSGithubUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B055F1731899A603008007A6 /* YSGithubUser.m */; };
+		B0862F9218AA952D00C0E133 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0862F9118AA952D00C0E133 /* CoreData.framework */; };
+		B0862F9518AA9A2C00C0E133 /* Github_To_Go.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0862F9318AA9A2C00C0E133 /* Github_To_Go.xcdatamodeld */; };
+		B0862F9818AA9C1E00C0E133 /* Repo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0862F9718AA9C1E00C0E133 /* Repo.m */; };
 		B0FE71071898626800BAF7B3 /* YSRepoSearchResultVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE71061898626800BAF7B3 /* YSRepoSearchResultVCViewController.m */; };
 		B0FE710A1898628A00BAF7B3 /* YSUserSearchResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE71091898628A00BAF7B3 /* YSUserSearchResultsVC.m */; };
 /* End PBXBuildFile section */
@@ -70,6 +75,9 @@
 		B009E0271896CFE0006E20D7 /* GithubToGoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GithubToGoTests.m; sourceTree = "<group>"; };
 		B009E0341896D341006E20D7 /* YSGithubNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSGithubNetworkController.h; sourceTree = "<group>"; };
 		B009E0351896D341006E20D7 /* YSGithubNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSGithubNetworkController.m; sourceTree = "<group>"; };
+		B00F571618AC1E6C00876050 /* YSHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSHomeVC.h; sourceTree = "<group>"; };
+		B00F571718AC1E6C00876050 /* YSHomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSHomeVC.m; sourceTree = "<group>"; };
+		B00F571918AC225300876050 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B0235EE71897594A00769FBA /* anchorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anchorIcon.png; sourceTree = "<group>"; };
 		B0235EE81897594A00769FBA /* atomicIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atomicIcon.png; sourceTree = "<group>"; };
 		B0235EE91897594A00769FBA /* beerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beerIcon.png; sourceTree = "<group>"; };
@@ -79,6 +87,10 @@
 		B055F17018989C77008007A6 /* YSCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCustomCell.m; sourceTree = "<group>"; };
 		B055F1721899A603008007A6 /* YSGithubUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSGithubUser.h; sourceTree = "<group>"; };
 		B055F1731899A603008007A6 /* YSGithubUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSGithubUser.m; sourceTree = "<group>"; };
+		B0862F9118AA952D00C0E133 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B0862F9418AA9A2C00C0E133 /* Github_To_Go.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Github_To_Go.xcdatamodel; sourceTree = "<group>"; };
+		B0862F9618AA9C1E00C0E133 /* Repo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repo.h; sourceTree = "<group>"; };
+		B0862F9718AA9C1E00C0E133 /* Repo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repo.m; sourceTree = "<group>"; };
 		B0FE71051898626700BAF7B3 /* YSRepoSearchResultVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSRepoSearchResultVCViewController.h; sourceTree = "<group>"; };
 		B0FE71061898626800BAF7B3 /* YSRepoSearchResultVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSRepoSearchResultVCViewController.m; sourceTree = "<group>"; };
 		B0FE71081898628A00BAF7B3 /* YSUserSearchResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUserSearchResultsVC.h; sourceTree = "<group>"; };
@@ -90,6 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00F571A18AC225300876050 /* AVFoundation.framework in Frameworks */,
+				B0862F9218AA952D00C0E133 /* CoreData.framework in Frameworks */,
 				B009DFF91896CFE0006E20D7 /* CoreGraphics.framework in Frameworks */,
 				B009DFFB1896CFE0006E20D7 /* UIKit.framework in Frameworks */,
 				B009DFF71896CFE0006E20D7 /* Foundation.framework in Frameworks */,
@@ -131,6 +145,8 @@
 		B009DFF51896CFE0006E20D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B00F571918AC225300876050 /* AVFoundation.framework */,
+				B0862F9118AA952D00C0E133 /* CoreData.framework */,
 				B009DFF61896CFE0006E20D7 /* Foundation.framework */,
 				B009DFF81896CFE0006E20D7 /* CoreGraphics.framework */,
 				B009DFFA1896CFE0006E20D7 /* UIKit.framework */,
@@ -149,6 +165,8 @@
 				B009E0051896CFE0006E20D7 /* YSAppDelegate.h */,
 				B009E0061896CFE0006E20D7 /* YSAppDelegate.m */,
 				B009E0081896CFE0006E20D7 /* Main_iPhone.storyboard */,
+				B00F571618AC1E6C00876050 /* YSHomeVC.h */,
+				B00F571718AC1E6C00876050 /* YSHomeVC.m */,
 				B009E00B1896CFE0006E20D7 /* Main_iPad.storyboard */,
 				B009E00E1896CFE0006E20D7 /* YSMasterViewController.h */,
 				B009E00F1896CFE0006E20D7 /* YSMasterViewController.m */,
@@ -160,6 +178,9 @@
 				B055F17018989C77008007A6 /* YSCustomCell.m */,
 				B009E0111896CFE0006E20D7 /* YSDetailViewController.h */,
 				B009E0121896CFE0006E20D7 /* YSDetailViewController.m */,
+				B0862F9318AA9A2C00C0E133 /* Github_To_Go.xcdatamodeld */,
+				B0862F9618AA9C1E00C0E133 /* Repo.h */,
+				B0862F9718AA9C1E00C0E133 /* Repo.m */,
 				B009E0141896CFE0006E20D7 /* Images.xcassets */,
 				B009DFFD1896CFE0006E20D7 /* Supporting Files */,
 			);
@@ -304,7 +325,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0862F9818AA9C1E00C0E133 /* Repo.m in Sources */,
 				B055F17118989C77008007A6 /* YSCustomCell.m in Sources */,
+				B0862F9518AA9A2C00C0E133 /* Github_To_Go.xcdatamodeld in Sources */,
+				B00F571818AC1E6C00876050 /* YSHomeVC.m in Sources */,
 				B009E0101896CFE0006E20D7 /* YSMasterViewController.m in Sources */,
 				B0FE710A1898628A00BAF7B3 /* YSUserSearchResultsVC.m in Sources */,
 				B009E0361896D341006E20D7 /* YSGithubNetworkController.m in Sources */,
@@ -543,6 +567,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B0862F9318AA9A2C00C0E133 /* Github_To_Go.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B0862F9418AA9A2C00C0E133 /* Github_To_Go.xcdatamodel */,
+			);
+			currentVersion = B0862F9418AA9A2C00C0E133 /* Github_To_Go.xcdatamodel */;
+			path = Github_To_Go.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B009DFEB1896CFE0006E20D7 /* Project object */;
 }

@@ -8,7 +8,16 @@
 
 #import "YSGithubUser.h"
 
+
+
+
 @implementation YSGithubUser
+
+@dynamic login;
+@dynamic pathToAvatar;
+@synthesize delegate,avatar,isDownloading;
+
+
 
 - (void) downloadAvatarOnQueue: (NSOperationQueue *) queue
 {

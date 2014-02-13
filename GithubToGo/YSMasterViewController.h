@@ -15,5 +15,4 @@
 @property (strong, nonatomic) YSDetailViewController *detailViewController;
 
 
-
 @end

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Repo.h"
 
 @interface YSDetailViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) Repo * detailItem;
 
 @end

@@ -1,30 +1,30 @@
 //
-//  YSRepoSearchResultVCViewController.m
+//  YSHomeVC.m
 //  GithubToGo
 //
-//  Created by Yair Szarf on 1/28/14.
+//  Created by Yair Szarf on 2/12/14.
 //  Copyright (c) 2014 The 2 Handed Consortium. All rights reserved.
 //
 
-#import "YSRepoSearchResultVCViewController.h"
-#import "YSDetailViewController.h"
-#import "YSGithubNetworkController.h"
+#import "YSHomeVC.h"
+#import <AVFoundation/AVFoundation.h>
 #import "Repo.h"
-#import "YSAppDelegate.h"
+#import "YSGithubUser.h"
 
 
-@interface YSRepoSearchResultVCViewController ()
+@interface YSHomeVC ()
 
-@property (strong, nonatomic) NSArray * searchResultsArray;
 @property (strong, nonatomic) YSGithubNetworkController * sharedNetworkController;
+@property (weak, nonatomic) YSAppDelegate * appDelegate;
+@property (weak, nonatomic) IBOutlet UIButton *loginBUtton;
+@property (strong,nonatomic) NSArray * userRepos;
 @property BOOL menuIsOut;
-@property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
-
 
 
 @end
 
-@implementation YSRepoSearchResultVCViewController
+@implementation YSHomeVC
+
 
 - (void)awakeFromNib
 {
@@ -38,22 +38,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
-    YSAppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
+	// Do any additional setup after loading the view.
+    self.appDelegate = [[UIApplication sharedApplication] delegate];
+    self.sharedNetworkController = self.appDelegate.networkController;
+    self.sharedNetworkController.delegate = self;
+    self.managedObjectContext = self.appDelegate.managedObjectContext;
     
     self.detailViewController = (YSDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    self.sharedNetworkController = [YSGithubNetworkController sharedNetworkController];
-    
-
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void) viewWillAppear:(BOOL)animated
+{
+   
     [super viewWillAppear:animated];
+//    [self clearSearchResults];
     if (self.clearsSelectionOnViewWillAppear) {
         [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    }
+    
+    if (self.sharedNetworkController.oAuthToken) {
+        [self.loginBUtton setTitle:@"logged in" forState:UIControlStateNormal] ;
+    } else {
+        [self.loginBUtton setTitle:@"log in" forState:UIControlStateNormal];
     }
 }
 
@@ -68,13 +76,69 @@
 }
 
 
+- (IBAction)loginButtonPressed:(UIButton *)sender {
+    if (self.sharedNetworkController.oAuthToken) {
+        [self showAlertWithMessage:@"Do you want to log off of github"];
+    } else {
+        [self authenticate];
+        [self.loginBUtton setTitle:@"logging in" forState:UIControlStateNormal];
+    }
+}
 
-- (void) searchReposForString:(NSString *) string {
-    self.searchResultsArray = [self.sharedNetworkController searchReposForString:string];
-    [self parseReposArrayToMObjects:self.searchResultsArray];
+- (void)authenticate
+{
+	// Do any additional setup after loading the view, typically from a nib.
     
+
+    [self.sharedNetworkController performSelector:@selector(beginOAuthAccess) withObject:nil afterDelay:0.1];
+}
+
+- (void) didAuthenticate
+{
+    [self.loginBUtton setTitle:@"logged in" forState:UIControlStateNormal];
+    AudioServicesPlaySystemSound (1022);
+    
+    [self parseReposArrayToMObjects:[self.sharedNetworkController fetchUserRepos]];
+}
+
+- (void) didCreateRepo:(NSDictionary *)JSONDict
+{
+    NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"Repo" inManagedObjectContext:self.managedObjectContext];
+    Repo * repo = [[Repo alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:self.managedObjectContext withJSONDict:JSONDict];
+    [self.fetchedRestultsController performFetch:nil];
     [self.tableView reloadData];
 }
+
+- (void) showAlertWithMessage: (NSString *) message
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                     message:message
+                                                    delegate:self
+                                           cancelButtonTitle:@"Cancel"
+                                           otherButtonTitles:@"Logout",nil];
+    alert.tag = 0;
+    [alert show];
+}
+
+//- (void) sh
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 0){
+        if (buttonIndex == 1) {
+            self.sharedNetworkController.oAuthToken = nil;
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:GITHUB_TOKEN_KEY];
+            [self.loginBUtton setTitle:@"log in" forState:UIControlStateNormal];
+        }
+    } else if (alertView.tag == 1 ) {
+        if (buttonIndex == 1 ) {
+            UITextField *repoName = [alertView textFieldAtIndex:0];
+            //call make repo!!!
+            [self.sharedNetworkController createRepo:repoName.text];
+        }
+    }
+}
+
 
 -  (void)parseReposArrayToMObjects:(NSArray *) repos {
     for (NSDictionary * repoDict in repos) {
@@ -83,6 +147,7 @@
         
         [repo.managedObjectContext save:nil];
     }
+    [self.tableView reloadData];
 }
 
 - (NSFetchedResultsController *) fetchedRestultsController
@@ -100,7 +165,6 @@
     [self.fetchedRestultsController performFetch:nil];
     return _fetchedRestultsController;
 }
-
 
 #pragma mark - Table View
 
@@ -132,23 +196,6 @@
     return NO;
 }
 
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Repo * repo = [self.fetchedRestultsController objectAtIndexPath:indexPath];
@@ -163,24 +210,22 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         Repo * repo = [self.fetchedRestultsController objectAtIndexPath:indexPath];
+        NSLog(@"%@",repo.name);
         [[segue destinationViewController] setDetailItem:repo];
     }
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-    [searchBar resignFirstResponder];
-    [self searchReposForString:searchBar.text];
-    
+- (IBAction)addRepoButtonPressed:(UIButton *)sender {
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"New Repo"
+                                                     message:@"Enter the name of your new repo:"
+                                                    delegate:self
+                                           cancelButtonTitle:@"Cancel"
+                                           otherButtonTitles:@"Create",nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = 1;
+    [alert show];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self clearSearchResults];
-    [searchBar resignFirstResponder];
-    
-    [self searchReposForString:searchBar.text];
-}
 
 - (void) clearSearchResults
 {
@@ -195,21 +240,8 @@
     }
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
-{
+
     
-}
-
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //This is a gist by @johnnyclem https://gist.github.com/johnnyclem/8215415 well done!
-    for (UIControl *control in self.view.subviews) {
-        if ([control isKindOfClass:[UISearchBar class]]) {
-            [control resignFirstResponder];
-        }
-    }
-}
 
 
 @end

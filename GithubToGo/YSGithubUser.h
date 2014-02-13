@@ -15,7 +15,7 @@
 
 @end
 
-@interface YSGithubUser : NSObject
+@interface YSGithubUser : NSManagedObject
 
 @property (strong,nonatomic) NSString * login;
 @property (strong,nonatomic) NSString * pathToAvatar;

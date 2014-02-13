@@ -9,6 +9,7 @@
 #import "YSMasterViewController.h"
 #import "YSDetailViewController.h"
 #import "YSGithubNetworkController.h"
+#import "YSAppDelegate.h"
 
 @interface YSMasterViewController () {
     NSMutableArray *_objects;
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) UIViewController * topVC;
 @property (strong, nonatomic) NSArray * VCs;
 @property (nonatomic) CGRect closedMenuCGRect, offScreenCGRect, openMenuCGRect;
+@property (weak, nonatomic) YSAppDelegate * appDelegate;
 
 
 @end
@@ -28,11 +30,15 @@
 
 
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-
+    
+    self.appDelegate = [[UIApplication sharedApplication] delegate];
+    self.sharedNetworkController = self.appDelegate.networkController;
+    
     self.detailViewController = (YSDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     self.closedMenuCGRect = self.view.frame;
@@ -46,11 +52,16 @@
     
     UIViewController * repoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"repoSearchVC"];
     UIViewController * usersVC =[self.storyboard instantiateViewControllerWithIdentifier:@"userSearchVC"];
+    UIViewController * homeVC =[self.storyboard instantiateViewControllerWithIdentifier:@"homeVC"];
     
-    self.VCs = [NSArray arrayWithObjects:repoVC,usersVC, nil];
+    
+    self.VCs = [NSArray arrayWithObjects:homeVC,repoVC,usersVC, nil];
 
     [self setTopVC:self.VCs[0]];
+    
+    
 }
+
 
 - (CGRect) closedMenuCGRect {
     return self.view.frame;
@@ -63,6 +74,10 @@
     return CGRectMake(self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 }
 
+- (IBAction)loginButtonPressed:(UIButton *)sender
+{
+    
+}
 
 - (IBAction)menuButtonPressed:(UIButton *)sender {
     self.menuIsOut = YES;

@@ -10,10 +10,15 @@
 #import "YSDetailViewController.h"
 #import "YSGithubUser.h"
 
-@interface YSRepoSearchResultVCViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface YSRepoSearchResultVCViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate, NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) YSDetailViewController *detailViewController;
 @property (strong, nonatomic) IBOutlet UITableView * tableView;
 @property BOOL clearsSelectionOnViewWillAppear;
+
+@property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
+
+@property (strong, nonatomic) NSFetchedResultsController * fetchedRestultsController;
+
 
 @end

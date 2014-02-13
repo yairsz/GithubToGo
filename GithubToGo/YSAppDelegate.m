@@ -10,6 +10,10 @@
 
 @implementation YSAppDelegate
 
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
@@ -18,9 +22,18 @@
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
     }
+    self.networkController = [YSGithubNetworkController new];
+    //pass managedobjectcontext to VC's
+    self.networkController.oAuthToken = [[NSUserDefaults standardUserDefaults] objectForKey:GITHUB_TOKEN_KEY];
     return YES;
 }
-							
+
+- (BOOL) application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    [self.networkController handleCallbackUrl:url];
+    return YES;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -46,6 +59,75 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self saveContext];
 }
+
+- (void) saveContext
+{
+    NSManagedObjectContext * context = self.managedObjectContext;
+    NSError * error;
+    if (context && [context hasChanges]) {
+        [context save:&error];
+        if (error) {
+            NSLog(@"error: %@",error);
+        }
+    }
+}
+
+- (NSURL *) applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+ - (NSManagedObjectContext *) managedObjectContext
+{
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    NSPersistentStoreCoordinator * coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    
+    return _managedObjectContext;
+}
+
+- (NSPersistentStoreCoordinator *) persistentStoreCoordinator
+{
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
+    }
+    
+    NSURL * storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Github_To_Go.sqlite"];
+    
+    NSError *error = nil;
+    
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
+    {
+        if (error) {
+            NSLog(@"error: %@",error);
+        }
+    }
+    
+    return _persistentStoreCoordinator;
+}
+
+
+- (NSManagedObjectModel *) managedObjectModel
+{
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
+    }
+    
+    NSURL * modelURL = [[NSBundle mainBundle] URLForResource:@"Github_To_Go" withExtension:@"momd"];
+    
+    _managedObjectModel = [[NSManagedObjectModel alloc]initWithContentsOfURL:modelURL];
+    
+    return _managedObjectModel;
+}
+
 
 @end

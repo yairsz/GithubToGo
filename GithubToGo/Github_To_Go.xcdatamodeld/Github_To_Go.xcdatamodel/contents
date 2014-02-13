@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Repo" representedClassName="Repo" syncable="YES">
+        <attribute name="html_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="repos" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="YSGithubUser" syncable="YES">
+        <attribute name="html_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pathToAvatar" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="repos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Repo" inverseName="user" inverseEntity="Repo" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Repo" positionX="475" positionY="-2745" width="128" height="88"/>
+        <element name="User" positionX="664" positionY="-2772" width="128" height="103"/>
+    </elements>
+</model>

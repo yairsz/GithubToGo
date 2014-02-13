@@ -92,8 +92,8 @@
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary * repo = self.searchResultsArray[indexPath.row];
-    self.detailViewController.detailItem = repo;
+//    Repo * repo = self.fetch [indexPath.row];
+//    self.detailViewController.detailItem = repo;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         [self performSegueWithIdentifier:@"showUser" sender:self];
     }
@@ -104,7 +104,7 @@
     if ([[segue identifier] isEqualToString:@"showUser"]) {
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
         NSDictionary * user = self.searchResultsArray[indexPath.row];
-        [[segue destinationViewController] setDetailItem:user];
+//        [[segue destinationViewController] setDetailItem:user];
     }
 }
 
