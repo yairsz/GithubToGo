@@ -133,19 +133,21 @@
 -(void) createRepo:(NSString *)repoName
 {
     NSDictionary * post = @{@"name":repoName};
-    NSLog(@"%@",post);
+    //NSLog(@"%@",post);
     NSData * JSONData = [NSJSONSerialization dataWithJSONObject:post options:kNilOptions error:nil];
     NSString * postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[JSONData length]];
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@user/repos?access_token=%@",GITHUB_BASE_URL,self.oAuthToken]]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@user/repos",GITHUB_BASE_URL]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:[NSString stringWithFormat:@"token %@",self.oAuthToken] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:JSONData];
     
     NSURLResponse * response;
     NSError * error;
     NSData * responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSLog(@"error: %@",error);
     [self.delegate didCreateRepo:[NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil]];
 }
 
